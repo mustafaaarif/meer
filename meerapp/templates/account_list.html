@@ -1,0 +1,28 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="box">
+                    <h1 class="title is-3 has-text-centered">Account List</h1>
+
+                    <ul>
+                        {% for account in accounts %}
+                            <li>
+                                <strong>Account ID:</strong> {{ account.id }}<br>
+                                <strong>Name:</strong> {{ account.name }}<br>
+                                <strong>Account Type:</strong> {{ account.account_type }}<br>
+                                <strong>Balance:</strong> {{ account.updated_balance }}
+                                <a href="{% url 'account_detail' account.id %}" class="button is-link">View Details</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

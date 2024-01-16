@@ -1,0 +1,40 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <h1 class="title">Marked Attendance Records</h1>
+
+            <table class="table is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Overtime Count</th>
+                        <th>Overtime Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in marked_records %}
+                        <tr>
+                            <td>{{ record.employee }}</td>
+                            <td>{{ record.date }}</td>
+                            <td>{{ record.status }}</td>
+                            <td>{{ record.location }}</td>
+                            <td>{{ record.overtime_count }}</td>
+                            <td>{{ record.overtime_location }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="buttons mt-4">
+                <a href="{% url 'mark_attendance' %}" class="button is-link">Go Back to Mark Attendance</a>
+                <a href="{% url 'attendance-report' %}" class="button is-primary">Generate Attendance Report</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

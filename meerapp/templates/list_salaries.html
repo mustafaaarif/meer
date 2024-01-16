@@ -1,0 +1,38 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <h2 class="title is-4">Salary List</h2>
+            <p class="subtitle is-6">Total Salary Amount: PKR {{ total_salary }}</p>
+
+            <div class="table-container">
+                <table class="table is-fullwidth is-centered">
+                    <thead>
+                        <tr>
+                            <th>MSS Number</th>
+                            <th>Employee Name</th>
+                            <th>Month/Year</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for salary in salaries %}
+                            <tr>
+                                <td>{{ salary.employee.MSS_number }}</td>
+                                <td>{{ salary.employee.ename }} {{ salary.employee.efathername }}</td>
+                                <td>{{ salary.month }}/{{ salary.year }}</td>
+                                <td>
+                                    <a href="{% url 'view_salary_detail' salary.id %}" class="button is-link is-small">View Details</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <a href="{% url 'create_salary' %}" class="button is-primary">Create Salary</a>
+        </div>
+    </div>
+{% endblock %}

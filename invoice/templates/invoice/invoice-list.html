@@ -1,0 +1,167 @@
+{% extends 'invoice/base.html' %}
+{% block content %}
+<script>
+    function filterInvoices() {
+        var status = document.getElementById('filterStatus').value;
+        var selectedMonth = document.getElementById('filterMonth').value;
+        var selectedYear = document.getElementById('filterYear').value;
+        var invoices = document.getElementsByClassName('invoice-row');
+
+        for (var i = 0; i < invoices.length; i++) {
+            var invoice = invoices[i];
+            var isPaid = invoice.getAttribute('data-is-paid');
+            var invoiceDate = new Date(invoice.getAttribute('data-invoice-date'));
+
+            if (
+                (status === 'all' || (status === '1' && isPaid === 'True') || (status === '0' && isPaid === 'False')) &&
+                (selectedMonth === 'all' || invoiceDate.getMonth() == selectedMonth) &&
+                (selectedYear === 'all' || invoiceDate.getFullYear() == selectedYear)
+            ) {
+                invoice.style.display = '';
+            } else {
+                invoice.style.display = 'none';
+            }
+        }
+    }
+</script>
+
+<div class="columns is-centered has-text-centered">
+    <div class="column is-half">
+        <div class="card has-background-white-ter">
+            <h1 class="title is-3"></h1>
+        </div>
+    </div>
+</div>
+
+<form action="{% url 'invoice:invoice-list' %}" method="post">{% csrf_token %}
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                All Orders / Change Order Status &nbsp;<button class="button is-rounded is-info">
+                    <a href="{% url 'invoice:invoice-create' %}" class="has-text-white">Create Invoice</a></button>
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="content">
+
+                <div class="card has-background-white-ter">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Filter by Status
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="select is-rounded">
+                            <select id="filterStatus" name="filterStatus" onchange="filterInvoices()">
+                                <option value="all">All</option>
+                                <option value="1">Paid</option>
+                                <option value="0">Not Paid</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card has-background-white-ter">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Filter by Month and Year
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="columns is-mobile">
+                            <div class="column">
+                                <div class="select is-rounded">
+                                    <select id="filterMonth" name="filterMonth" onchange="filterInvoices()">
+                                        <option value="all">All Months</option>
+                                        <option value="0">January</option>
+                                        <option value="1">February</option>
+                                        <option value="2">March</option>
+                                        <option value="3">April</option>
+                                        <option value="4">May</option>
+                                        <option value="5">June</option>
+                                        <option value="6">July</option>
+                                        <option value="7">August</option>
+                                        <option value="8">September</option>
+                                        <option value="9">October</option>
+                                        <option value="10">November</option>
+                                        <option value="11">December</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <input class="input" type="text" id="filterYear" name="filterYear" placeholder="Enter Year" oninput="filterInvoices()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table is-fullwidth is-bordered is-hoverable is-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>INVOICE</th>
+                            <th>CUSTOMER</th>
+                            <th>DATE</th>
+                            <th>DUE DATE</th>
+                            <th>BALANCE</th>
+                            <th>TOTAL</th>
+                            <th>STATUS</th>
+                            <th>View</th>
+                            <th>DOWNLOAD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invoice in invoices %}
+                        <tr class="invoice-row" data-is-paid="{{ invoice.get_status }}" data-invoice-date="{{ invoice.date }}">
+                            <td>
+                                <input class="checkbox" type="checkbox" value="{{invoice.id}}" name="invoice_id" size="1" />
+                            </td>
+                            <td width="1%">#{{invoice.id}}</td>
+                            <td width="9%">{{invoice.customer}}</td>
+                            <td>{{invoice.date}}</td>
+                            <td>{{invoice.due_date}}</td>
+                            <td width="1%"></td>
+                            <td>{{invoice.total_amount}}</td>
+                            <td class="level-right">
+                                {% if invoice.get_status %}
+                                    <a class="button is-small is-success" href="#">Paid</a>
+                                {% else %}
+                                    <a class="button is-small is-warning" href="#">Not Paid</a>
+                                {% endif %}
+                            </td>
+                            <td width="1%">
+                                <a href="{% url 'invoice:invoice-detail' id=invoice.id %}">
+                                    <div class="button is-small is-info">View</div>
+                                </a>
+                            </td>
+                            <td width="1%">
+                                <a href="{% url 'invoice:invoice-download' id=invoice.id %}">Download</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div><br /><br /><br />
+
+    <div class="card has-background-white-ter">
+        <header class="card-header">
+            <p class="card-header-title">
+                Change Order Status
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="select is-rounded">
+                <select id="status" name="status">
+                    <option value="1">Paid</option>
+                    <option value="0">Not Paid</option>
+                </select>
+            </div>
+            <input class="button is-info is-rounded" type="submit" class="btn" value="Change Status" name="mybtn">
+        </div>
+    </div>
+</form>
+
+{% endblock content %}

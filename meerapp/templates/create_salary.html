@@ -1,0 +1,118 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <h2 class="title is-4">Create Salary</h2>
+
+            <form method="post" id="createSalaryForm">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label class="label" for="employee">Employee:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="employee" id="employee" onchange="updateTotalOvertime()">
+                                {% for employee in employees %}
+                                    <option value="{{ employee.id }}">{{ employee.ename }} - {{ employee.MSS_number }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-body">
+                        <div class="field">
+                            <label class="label" for="month">Month:</label>
+                            <div class="control">
+                                <input class="input" type="number" name="month" id="month" min="1" max="12" onchange="updateTotalOvertime()">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="year">Year:</label>
+                            <div class="control">
+                                <input class="input" type="number" name="year" id="year" min="1900" max="2100" onchange="updateTotalOvertime()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="full_days">Full Days:</label>
+                    <div class="control">
+                        <input class="input" type="number" name="full_days" id="full_days">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="half_days">Half Days:</label>
+                    <div class="control">
+                        <input class="input" type="number" name="half_days" id="half_days">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="overtime_full_day_rate">Overtime Full Day Rate:</label>
+                    <div class="control">
+                        <input class="input" type="text" name="overtime_full_day_rate" id="overtime_full_day_rate">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="overtime_half_day_rate">Overtime Half Day Rate:</label>
+                    <div class="control">
+                        <input class="input" type="text" name="overtime_half_day_rate" id="overtime_half_day_rate">
+                    </div>
+                </div>
+
+                <!-- Add other fields as needed -->
+
+                <!-- Add the total overtime field -->
+                <div class="field">
+                    <label class="label" for="total_overtime">Total Overtime:</label>
+                    <div class="control">
+                        <input class="input" type="text" name="total_overtime" id="total_overtime" readonly>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">Create Salary</button>
+                    </div>
+                </div>
+            </form>
+
+            <a href="{% url 'list_salaries' %}" class="button is-link">Back to Salary List</a>
+
+            {% if error_message %}
+                <p class="help is-danger">{{ error_message }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- create_salary.html -->
+    <script>
+        function updateTotalOvertime() {
+            const employeeId = document.getElementById('employee').value;
+            const month = document.getElementById('month').value;
+            const year = document.getElementById('year').value;
+
+            fetch(`/get_total_overtime/?employee_id=${employeeId}&month=${month}&year=${year}`)
+                .then(response => response.json())
+                .then(data => {
+                    const totalOvertimeField = document.getElementById('total_overtime');
+                    totalOvertimeField.value = data.total_overtime || 0;
+                })
+                .catch(error => {
+                    console.error('Error fetching total overtime:', error);
+                    const totalOvertimeField = document.getElementById('total_overtime');
+                    totalOvertimeField.value = 0;
+                });
+        }
+    </script>
+{% endblock %}

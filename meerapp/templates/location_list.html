@@ -1,0 +1,25 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-2 has-text-centered">Locations</h2>
+
+      {% if locations %}
+        <ul class="content">
+          {% for location in locations %}
+            <li class="mb-4">
+              <p class="subtitle is-4">{{ location.name }} - Guards Required: {{ location.guards_required }}</p>
+              <a href="{% url 'assign_guards' location.id %}" class="button is-link">Assign Guards</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="has-text-centered">No locations added yet.</p>
+      {% endif %}
+
+      <a href="{% url 'add_location' %}" class="button is-primary">Add Location</a>
+    </div>
+  </section>
+{% endblock %}

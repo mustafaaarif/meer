@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Journal Entries for {{ selected_month }}/{{ selected_year }}</title>
+</head>
+<body>
+    <h1>Journal Entries for {{ selected_month }}/{{ selected_year }}</h1>
+
+    {% if journal_entries %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Account</th>
+                <th>Entry Name</th>
+                <th>Debit Amount</th>
+                <th>Credit Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in journal_entries %}
+            <tr>
+                <td>{{ entry.date }}</td>
+                <td>{{ entry.account }}</td>
+                <td>{{ entry.entry_name }}</td>
+                <td>{{ entry.debit_amount }}</td>
+                <td>{{ entry.credit_amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No journal entries found for the selected month and year.</p>
+    {% endif %}
+</body>
+</html>

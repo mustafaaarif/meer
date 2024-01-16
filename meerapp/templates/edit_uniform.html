@@ -1,0 +1,11 @@
+<!-- uniform_management/templates/uniform_management/edit_uniform.html -->
+
+<h1>Edit Uniform for {{ employee.employee_name }}</h1>
+
+<form method="post" action="{% url 'edit_uniform' employee_id=employee.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+</form>
+
+<a href="{% url 'employee_detail' employee_id=employee.id %}">Back to Employee Details</a>

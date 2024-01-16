@@ -1,0 +1,27 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+  <body>
+    <div class="container has-text-centered">
+      <h1 class="title is-1">Delete Employee</h1>
+
+      <p class="subtitle is-4">
+        Are you sure you want to delete employee "{{ employee.ename }}" (ID: {{ employee.id }})?
+      </p>
+
+      <form method="POST" class="is-centered">
+        {% csrf_token %}
+
+        <div class="field is-grouped is-grouped-centered">
+          <div class="control">
+            <button type="submit" class="button is-danger">Delete</button>
+          </div>
+          <div class="control">
+            <a href="{% url 'employee_list' %}" class="button is-link">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+{% endblock %}

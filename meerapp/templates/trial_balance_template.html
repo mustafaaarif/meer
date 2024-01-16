@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial Balance</title>
+</head>
+<body>
+    <h1>Trial Balance</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Filter">
+    </form>
+
+    {% if trial_balances %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Year</th>
+                    <!-- Add other trial balance headers as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for trial_balance in trial_balances %}
+                    <tr>
+                        <td>{{ trial_balance.month }}</td>
+                        <td>{{ trial_balance.year }}</td>
+                        <!-- Add other trial balance fields as needed -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No trial balance data found.</p>
+    {% endif %}
+</body>
+</html>

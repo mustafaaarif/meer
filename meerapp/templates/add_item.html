@@ -1,0 +1,17 @@
+<!-- add_item.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Item</title>
+</head>
+<body>
+    <h1>Add Item</h1>
+    <form method="post" action="{% url 'add_item' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Item</button>
+    </form>
+    <a href="{% url 'uniform_issue_detail' uniform_issue_id=1 %}">Back to Uniform Issue Detail</a>
+</body>
+</html>

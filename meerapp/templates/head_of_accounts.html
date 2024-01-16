@@ -1,0 +1,24 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="box">
+          <h1 class="title is-3 has-text-centered">Head of Accounts</h1>
+
+          <ul class="content">
+            {% for head_of_account in heads_of_account %}
+              <li>{{ head_of_account.name }}</li>
+            {% endfor %}
+          </ul>
+
+          <p class="has-text-centered"><a href="{% url 'add_head_of_account' %}" class="button is-primary">Add Head of Account</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

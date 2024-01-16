@@ -1,0 +1,44 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1 has-text-centered">Meer Security Services (Pvt) Ltd.</h1>
+    <h2 class="subtitle is-3 has-text-centered">Detail of Computerized License Numbers and Weapon Numbers</h2>
+
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <div class="table-container">
+          <table class="table is-fullwidth is-striped is-hoverable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>SN Number</th>
+                <th>Computerized License Number</th>
+                <th>Weapon Number</th>
+                <th>Make Weapons</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for weapon in object_list %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ weapon.sn_number }}</td>
+                  <td>{{ weapon.computerized_license_number }}</td>
+                  <td>{{ weapon.weapon_number }}</td>
+                  <td>{{ weapon.make_weapons }}</td>
+                  <td>
+                    <a href="{% url 'weapon-detail' weapon.pk %}" class="button is-link is-small">Details</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

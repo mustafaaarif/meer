@@ -1,0 +1,19 @@
+<!-- uniform_management/templates/uniform_management/employee_detail.html -->
+
+<h1>{{ employee.employee_name }} - Employee Details</h1>
+
+<!-- Display Uniform -->
+<h2>Uniform</h2>
+<p>Date Issued: {{ uniform.date_issued }}</p>
+<p>Additional Notes: {{ uniform.additional_notes }}</p>
+
+<!-- Display Uniform Items -->
+<h2>Uniform Items</h2>
+<ul>
+    {% for item in uniform_items %}
+        <li>{{ item.uniform_item_type }} - Quantity: {{ item.quantity }} - Size: {{ item.size }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'add_uniform_item' employee_id=employee.id %}">Add Uniform Item</a>
+<a href="{% url 'edit_uniform' employee_id=employee.id %}">Edit Uniform</a>

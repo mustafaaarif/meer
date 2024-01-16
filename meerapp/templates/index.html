@@ -1,0 +1,31 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+  {{ block.super }}
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <div class="box">
+            <h1 class="title is-1 has-text-centered">Meer Security Services (pvt) Ltd</h1>
+
+            <div class="content">
+              <p>We provide complete security packages.</p>
+              <p>We prioritize customer satisfaction and communication. Our security personnel are trained to be approachable and helpful while maintaining a strong security presence.</p>
+              <p>Guarding Your Peace of Mind: Our Team of Highly Trained Security Professionals is Ready to Safeguard Your Assets, Property, and Events. With Unparalleled Experience and Tailored Solutions, We've Got Your Security Needs Covered. Your Safety, Our Commitment. 🌟🛡️</p>
+              <p>Guardians of Security: Our highly trained security guards are the shield that safeguards the area's safety and integrity.</p>
+              <p>Trust our experienced professionals to provide you with expert advice on securities trading and investment strategies.</p>
+              <p>📞 𝑪𝑨𝑳𝑳 𝑵𝑶𝑾: 0301 8208337</p>
+              <p>𝑳𝑶𝑪𝑨𝑻𝑰𝑶𝑵: Head office: Office no.1, 1st Floor, Building 3-C, 22nd commercial street, Phase 2, DHA, Karachi, Pakistan.</p>
+            <a class="button is-info" href="{% url 'login' %}">Login</a>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

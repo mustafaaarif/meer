@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Invoice Item</title>
+</head>
+<body>
+    <h1>Create Invoice Item for Invoice {{ invoice.invoice_number }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Item</button>
+    </form>
+    <a href="{% url 'invoice_details' invoice.id %}">Back to Invoice Details</a>
+</body>
+</html>

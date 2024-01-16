@@ -1,0 +1,79 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <title>Attendance Report for {% if month and year %}{{ month }}/{{ year }}{% endif %}</title>
+            <h1 class="title">Attendance Report</h1>
+
+            <form method="get" action="{% url 'attendance-report' %}" class="mb-4">
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label for="month" class="label">Month:</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="number" name="month" id="month" class="input" min="1" max="12">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field-label is-normal">
+                        <label for="year" class="label">Year:</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="number" name="year" id="year" class="input" min="1900" max="2099">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <button type="submit" class="button is-primary">Generate Report</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            {% if month and year %}
+                <h2 class="subtitle">Attendance Report for {{ month }}/{{ year }}</h2>
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Total Days</th>
+                            <th>Present Days</th>
+                            <th>Absent Days</th>
+                            <th>Attendance Percentage</th>
+                            <th>Total Overtime Days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employee, data in attendance_data.items %}
+                            <tr>
+                                <td>{{ employee.ename }}</td>
+                                <td>{{ data.total_days }}</td>
+                                <td>{{ data.present_days }}</td>
+                                <td>{{ data.absent_days }}</td>
+                                <td>{{ data.attendance_percentage }}%</td>
+                                <td>{{ data.total_overtime }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+
+            {% if error_message %}
+                <p class="has-text-danger">{{ error_message }}</p>
+            {% endif %}
+
+            <a href="{% url 'mark_attendance' %}" class="button is-link mt-4">Go Back to Mark Attendance</a>
+        </div>
+    </div>
+{% endblock %}

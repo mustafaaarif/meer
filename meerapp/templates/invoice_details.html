@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Details</title>
+</head>
+<body>
+    <h1>Invoice Details</h1>
+    <p>Invoice Number: {{ invoice.invoice_number }}</p>
+    <p>Date: {{ invoice.date }}</p>
+    <p>Due Date: {{ invoice.due_date }}</p>
+    <p>Client Name: {{ invoice.client_name }}</p>
+    <p>Total Amount: ${{ invoice.total_amount }}</p>
+
+    <h2>Invoice Items</h2>
+    <ul>
+        {% for item in invoice.invoiceitem_set.all %}
+        <li>{{ item.description }} - Quantity: {{ item.quantity }} - Unit Price: ${{ item.unit_price }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'invoice_list' %}">Back to Invoices</a>
+</body>
+</html>

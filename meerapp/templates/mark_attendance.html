@@ -1,0 +1,35 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="section">
+        <div class="container has-text-centered">
+            <h1 class="title">Mark Attendance</h1>
+
+            {% if messages %}
+                <div class="notification is-primary">
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="button is-primary" type="submit">Submit</button>
+            </form>
+
+            <h2 class="title is-4 mt-4">Marked Attendance Records</h2>
+            <ul class="mb-4">
+                {% for record in marked_records %}
+                    <li>{{ record.employee }} - {{ record.date }} - {{ record.status }}</li>
+                {% endfor %}
+            </ul>
+
+            <a href="{% url 'attendance_list' %}" class="button is-link">View All Marked Attendance</a>
+        </div>
+    </div>
+{% endblock %}

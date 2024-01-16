@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Balance Sheet</title>
+</head>
+<body>
+    <h1>Balance Sheet</h1>
+
+    <h2>Account: {{ account.name }}</h2>
+
+    <h2>Assets:</h2>
+    <p>Cash and Cash Equivalents: PKR{{ account.cash_and_equivalents }}</p>
+    <p>Accounts Receivable: PKR{{ account.accounts_receivable }}</p>
+    <p>Inventory: PKR{{ account.inventory }}</p>
+    <p>Property, Plant, Equipment: PKR{{ account.property_equipment }}</p>
+    <p>Accumulated Depreciation: PKR{{ account.accumulated_depreciation }}</p>
+    <p>Investments: PKR{{ account.investments }}</p>
+    <p>Other Assets: PKR{{ account.other_assets }}</p>
+    <!-- Display Total Assets -->
+    <p><strong>Total Assets: PKR{{ total_assets }}</strong></p>
+
+    <h2>Liabilities:</h2>
+    <p>Accounts Payable: PKR{{ account.accounts_payable }}</p>
+    <p>Short-Term Loans: PKR{{ account.short_term_loans }}</p>
+    <p>Accrued Expenses: PKR{{ account.accrued_expenses }}</p>
+    <p>Long-Term Debt: PKR{{ account.long_term_debt }}</p>
+    <p>Other Liabilities: PKR{{ account.other_liabilities }}</p>
+    <!-- Display Total Liabilities -->
+    <p><strong>Total Liabilities: PKR{{ total_liabilities }}</strong></p>
+
+    <h2>Equity:</h2>
+    <p>Common Stock: PKR{{ account.common_stock }}</p>
+    <p>Retained Earnings: PKR{{ account.retained_earnings }}</p>
+    <!-- Display Net Equity -->
+    <p><strong>Net Equity: PKR{{ net_equity }}</strong></p>
+
+    <h2>Total Liabilities and Equity:</h2>
+    <p><strong>Total Liabilities and Equity: PKR{{ total_liabilities|add:net_equity }}</strong></p>
+</body>
+</html>
+

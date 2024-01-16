@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Uniform</title>
+  <style>
+    /* Add your custom styles here */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section {
+      margin-bottom: 20px;
+    }
+
+    .lineitem-form {
+      margin-bottom: 10px;
+    }
+
+    .submit-button, .add-lineitem-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .add-lineitem-button {
+      margin-top: 10px;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      let formCount = {{ lineitem_formset.total_form_count }};
+      const lineitemsDiv = $('.lineitem-forms');
+
+      $('#addLineItem').click(function () {
+        const newForm = `
+          <div class="lineitem-form">
+            {{ lineitem_formset.empty_form.as_p | safe }}
+          </div>`;
+        lineitemsDiv.append(newForm);
+
+        // Update the form count in the management form
+        lineitemsDiv.find('input[name$="-TOTAL_FORMS"]').val(formCount + 1);
+        formCount++;
+      });
+    });
+  </script>
+</head>
+<body>
+
+<form method="post" id="uniformForm">
+  {% csrf_token %}
+
+  <div class="form-section">
+    <!-- UniformForm -->
+    {{ form.as_p }}
+
+    <!-- LineItemFormSet -->
+    {{ lineitem_formset.management_form }}
+    <div class="lineitem-forms">
+      {% for lineitem_form in lineitem_formset %}
+        {{ lineitem_form.as_p }}
+      {% endfor %}
+    </div>
+  </div>
+
+  <button type="submit" class="submit-button">Save</button>
+</form>
+
+</body>
+</html>

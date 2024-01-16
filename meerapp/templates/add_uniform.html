@@ -1,0 +1,21 @@
+<!-- add_uniform.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Uniform</title>
+</head>
+<body>
+    <h1>Add Uniform</h1>
+    <form method="post" action="{% url 'add_uniform' %}">
+        {% csrf_token %}
+        {{ uniform_form.as_p }}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form.as_table }}
+        {% endfor %}
+        <button type="submit">Add Uniform</button>
+    </form>
+    <a href="{% url 'uniform_issue_detail' uniform_issue_id=1 %}">Back to Uniform Issue Detail</a>
+</body>
+</html>

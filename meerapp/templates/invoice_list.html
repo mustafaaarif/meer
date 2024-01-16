@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List of Invoices</title>
+</head>
+<body>
+    <h1>List of Invoices</h1>
+    <ul>
+        {% for invoice in invoices %}
+        <li><a href="{% url 'invoice' invoice.id %}">{{ invoice.client_name }} - {{ invoice.invoice_date }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'index' %}">Back to Homepage</a>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <h2 class="title is-4">Employee Report - {{ employee.id }} : {{ employee.ename }} {{ employee.efathername }}</h2>
+
+            <div class="columns is-multiline">
+                {% if employee.employee_image %}
+                    <div class="column is-one-third">
+                        <figure class="image is-128x128">
+                            <img src="{{ employee.employee_image.url }}" alt="Employee Image">
+                        </figure>
+                        <p class="subtitle is-6 has-text-centered">Employee Image</p>
+                    </div>
+                {% endif %}
+
+                {% if employee.weapon_picture %}
+                    <div class="column is-one-third">
+                        <figure class="image is-128x128">
+                            <img src="{{ employee.weapon_picture.url }}" alt="Weapon Picture">
+                        </figure>
+                        <p class="subtitle is-6 has-text-centered">Weapon Picture</p>
+                    </div>
+                {% endif %}
+
+                {% if employee.employee_card_image %}
+                    <div class="column is-one-third">
+                        <figure class="image is-128x128">
+                            <img src="{{ employee.employee_card_image.url }}" alt="Employee Card Image">
+                        </figure>
+                        <p class="subtitle is-6 has-text-centered">Employee Card Image</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="box mt-4">
+                <ul class="content">
+                    <li><strong>MSS number:</strong> {{ employee.MSS_number }}</li>
+                    <li><strong>Joining Date:</strong> {{ employee.edate|date:"F d, Y, g:i a" }}</li>
+                    <li><strong>Contact:</strong> {{ employee.econtact }}</li>
+                    <li><strong>CNIC Verification:</strong> {{ employee.ecnicverification }}</li>
+                    <li><strong>Designation:</strong> {{ employee.edesignation }}</li>
+                    <li><strong>Ex-Guard:</strong> {{ employee.eexguard }}</li>
+                    <li><strong>Category:</strong> {{ employee.ecategory }}</li>
+                    <li><strong>CNIC No.:</strong> {{ employee.ecnicno }}</li>
+                    <li><strong>CNIC Expiry Date:</strong> {{ employee.ecnicexpirydate|date:"F d, Y" }}</li>
+                    <li><strong>Date of Birth:</strong> {{ employee.edateofbirth|date:"F d, Y" }}</li>
+                    <li><strong>Present Address:</strong> {{ employee.epresentaddress }}</li>
+                    <li><strong>Permanent Address:</strong> {{ employee.epermenantaddress }}</li>
+                    <li><strong>Service No.:</strong> {{ employee.eserviceno }}</li>
+                    <li><strong>Weapon No.:</strong> {{ employee.weapono }}</li>
+                    <li><strong>Weapon Name:</strong> {{ employee.weaponname }}</li>
+                    <li><strong>Weapon Issue Date:</strong> {{ employee.weapondate|date:"F d, Y" }}</li>
+                </ul>
+                 <h3 class="title is-5 mt-4">Uniform Details</h3>
+
+                {% if employee.uniform_set.all %}
+                    <ul class="mt-2">
+                        {% for uniform in employee.uniform_set.all %}
+                            <li>
+                                <strong>Date:</strong> {{ uniform.date | date:"F d, Y" }}
+                                <br>
+                                <strong>Status:</strong> {{ uniform.status }}
+                                {% if uniform.lineitem_set.all %}
+                                    <ul class="ml-4">
+                                        {% for lineitem in uniform.lineitem_set.all %}
+                                            <li>
+                                                <strong>Product:</strong> {{ lineitem.uniform_product }}
+                                                <br>
+                                                <strong>Description:</strong> {{ lineitem.description }}
+                                                <br>
+                                                <strong>Quantity:</strong> {{ lineitem.quantity }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>No line items for this uniform.</p>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="mt-2">No uniform details available for this employee.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

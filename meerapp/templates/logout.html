@@ -1,0 +1,15 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+  <section class="section">
+    <div class="container has-text-centered">
+      <h2 class="title is-2">Logout</h2>
+
+      <p class="subtitle is-4">You have been logged out.</p>
+      <a class="button is-info" href="{% url 'index' %}">Login</a>
+
+
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+<h2>Location: {{ location.name }}</h2>
+<p>Address: {{ location.address }}</p>
+<p>Guards Required: {{ location.guards_required }}</p>
+
+<h3>Assigned Guards</h3>
+<ul>
+    {% for guard in assigned_guards %}
+        <li>{{ guard.ename }}</li>
+    {% endfor %}
+</ul>
+
+<form method="post" action="{% url 'assign_guards' location.id %}">
+    {% csrf_token %}
+    <div id="guard-formset">
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="guard-form">
+                {{ form.as_table }}
+            </div>
+        {% endfor %}
+    </div>
+    <button type="submit">Assign Guards</button>
+</form>
+{% endblock %}
+

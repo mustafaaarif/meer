@@ -1,0 +1,42 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1 has-text-centered">Meer Security Services (Pvt) Ltd.</h1>
+    <h2 class="subtitle is-3 has-text-centered">Weapon Detail</h2>
+
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="box">
+          <p class="has-text-weight-semibold">ID: {{ object.id }}</p>
+          <p class="has-text-weight-semibold">SR#: {{ object.sr_number }}</p>
+          <p class="has-text-weight-semibold">SN#: {{ object.sn_number }}</p>
+          <p class="has-text-weight-semibold">Computerized License Number: {{ object.computerized_license_number }}</p>
+          <p class="has-text-weight-semibold">Weapon Number: {{ object.weapon_number }}</p>
+          <p class="has-text-weight-semibold">Make Weapons: {{ object.make_weapons }}</p>
+          <p class="has-text-weight-semibold">Purchase Date: {{ object.purchase_date }}</p>
+          <p class="has-text-weight-semibold">Weapon Purchase From: {{ object.weapon_purchase_from }}</p>
+          <p class="has-text-weight-semibold">Weapon Type: {{ object.weapon_type }}</p>
+          <p class="has-text-weight-semibold">Weapon Serial Number: {{ object.weapon_serial_number }}</p>
+          <p class="has-text-weight-semibold">AMMU: {{ object.ammu }}</p>
+          <p class="has-text-weight-semibold">Guard Name: {{ object.guard_name }}</p>
+          <p class="has-text-weight-semibold">Location: {{ object.location }}</p>
+          <p class="has-text-weight-semibold">Update Date: {{ object.update_date }}</p>
+          <p class="has-text-weight-semibold">Client Name: {{ object.client_name }}</p>
+
+          {% if object.guard_sign %}
+            <p class="has-text-weight-semibold">Guard Sign:</p>
+            <img src="{{ object.guard_sign.url }}" alt="Guard Sign" class="image is-128x128">
+          {% endif %}
+
+          <p class="has-text-weight-semibold">Remarks: {{ object.remarks }}</p>
+
+          <p class="mt-5"><a href="{% url 'weapon-list' %}" class="button is-link">Back to Weapon List</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

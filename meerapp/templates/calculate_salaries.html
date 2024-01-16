@@ -1,0 +1,26 @@
+<table>
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Base Salary</th>
+            <th>Full Day Rate</th>
+            <th>Half Day Rate</th>
+            <th>Calculated Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for salary in salaries %}
+            <tr>
+                <td>{{ salary.employee }}</td>
+                <td>{{ salary.base_salary }}</td>
+                <td>{{ salary.overtime_full_day_rate }}</td>
+                <td>{{ salary.overtime_half_day_rate }}</td>
+                <td>{{ salary.calculate_salary }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5">No salaries found.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

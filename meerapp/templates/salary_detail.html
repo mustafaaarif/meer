@@ -1,0 +1,31 @@
+{% extends "invoice/base.html" %}
+{% load static %}
+{% load bulma_tags %}
+
+{% block content %}
+  <section class="section">
+    <div class="container has-text-centered">
+        <center><img src="{% static 'logo.jpg' %}" alt="logo" class="image is-128x128 mb-2"></center>
+
+      <h2 class="title is-2">Salary Detail</h2>
+      <p class="subtitle is-4">Employee Name: {{ salary.employee.ename }} {{ salary.employee.efathername }}</p>
+      <p class="subtitle is-4">Date: {{ salary.month }}/{{ salary.year }}</p>
+<center>
+      <ul class="content mt-4">
+        {% if salary.employee.employee_image %}
+          <li>
+            <img src="{{ salary.employee.employee_image.url }}" alt="Employee Image" class="image is-128x128 mb-2">
+          </li>
+        {% endif %}
+        <li class="subtitle is-5">Base Salary: PKR {{ salary.employee.base_salary }}</li>
+        <li class="subtitle is-5">Full Pay Days: {{ salary.full_days }}</li>
+        <li class="subtitle is-5">Half Pay Days: {{ salary.half_days }}</li>
+        <li class="subtitle is-5">Overtime Full Day Rate: PKR {{ salary.overtime_full_day_rate }}</li>
+        <li class="subtitle is-5">Overtime Half Day Rate: PKR {{ salary.overtime_half_day_rate }}</li>
+        <li class="subtitle is-5">Total Salary: PKR {{ salary.calculate_salary }}</li>
+      </ul>
+</center>
+      <a href="{% url 'list_salaries' %}" class="button is-primary mt-4">Back to Salary List</a>
+    </div>
+  </section>
+{% endblock %}

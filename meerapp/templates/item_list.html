@@ -1,0 +1,7 @@
+<!-- in templates/item_list.html -->
+<h1>Item List</h1>
+<ul>
+    {% for item in items %}
+        <li>{{ item.name }}</li>
+    {% endfor %}
+</ul>

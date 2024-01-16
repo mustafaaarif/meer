@@ -1,0 +1,66 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+  <section class="section">
+    <div class="container">
+      <h1 class="title is-2 has-text-centered">Assign Guards to Location: {{ location.name }}</h1>
+
+      <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {{ formset.non_form_errors }}
+
+        <div id="formset-container" class="mb-4">
+          {% for form in formset %}
+            <div class="field is-grouped formset-form">
+              {{ form.assigned_guard }}
+              <button class="button is-danger delete-form" type="button">Delete</button>
+            </div>
+          {% endfor %}
+        </div>
+
+        <button class="button is-primary add-more-guards">Add more Guards</button>
+        <input class="button is-success" type="submit" value="Assign Guards">
+      </form>
+
+      <!-- Display assigned guards -->
+      <h2 class="title is-4 mt-5">Assigned Guards</h2>
+      <ul class="content">
+        {% for guard in location.assigned_guards.all %}
+          <li>{{ guard.ename }} (MSS Number: {{ guard.MSS_number }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    // JavaScript to handle adding more guards dynamically
+    $('.add-more-guards').on('click', function () {
+      const formset = $('#id_form-TOTAL_FORMS').val();
+      const lastForm = $('.formset-form:last');
+
+      // Check if the last form has a selected guard
+      if (lastForm.find('select').val()) {
+        const newForm = lastForm.clone();
+        newForm.find('select').val('');
+        $('#formset-container').append(newForm);
+        $('#id_form-TOTAL_FORMS').val(parseInt(formset) + 1);
+
+        newForm.find('.delete-form').on('click', function () {
+          newForm.remove();
+          $('#id_form-TOTAL_FORMS').val(parseInt($('#id_form-TOTAL_FORMS').val()) - 1);
+        });
+      } else {
+        alert("Please select a guard for the previous entry before adding more.");
+      }
+    });
+
+    // JavaScript to handle deleting a form
+    $(document).on('click', '.delete-form', function () {
+      const form = $(this).parent();
+      form.remove();
+      $('#id_form-TOTAL_FORMS').val(parseInt($('#id_form-TOTAL_FORMS').val()) - 1);
+    });
+  </script>
+{% endblock %}

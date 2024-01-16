@@ -1,0 +1,66 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="box">
+          <h1 class="title is-3 has-text-centered">Welcome, {{ request.user.username }}!</h1>
+
+          <div class="menu">
+            <p class="menu-label">Transaction</p>
+            <ul class="menu-list">
+              <li><a href="{% url 'add_head_of_account' %}">Add Head of Account</a></li>
+              <li><a href="{% url 'transactions' %}">Transactions</a></li>
+              <li><a href="{% url 'add_transaction' %}">Add Transaction</a></li>
+            </ul>
+
+            <p class="menu-label">Account</p>
+            <ul class="menu-list">
+              <li><a href="{% url 'create_account' %}">Create Account</a></li>
+              <li><a href="{% url 'account_list' %}">Account List</a></li>
+            </ul>
+
+            <p class="menu-label">Invoice</p>
+            <ul class="menu-list">
+              <li><a href="{% url 'invoice:invoice-create' %}">Go to Invoice Creation</a></li>
+              <li><a href="{% url 'invoice:invoice-list' %}">Go to Invoice List</a></li>
+            </ul>
+
+            <p class="menu-label">Employee</p>
+            <ul class="menu-list">
+              <li><a href="{% url 'add_employee' %}">Add Employee</a></li>
+              <li><a href="{% url 'uniform_form' %}">Add Uniform</a></li>
+              <li><a href="{% url 'employee_list' %}">Active Employee</a></li>
+              <li><a href="{% url 'trash' %}">In Active Employee</a></li>
+            </ul>
+
+            <p class="menu-label">Attendance</p>
+            <ul class="menu-list">
+              <li><a href="{% url 'mark_attendance' %}">Mark Attendance</a></li>
+              <li><a href="{% url 'attendance-report' %}">Attendance Report</a></li>
+            </ul>
+
+            <p class="menu-label">Create Salary</p>
+            <ul class="menu-list">
+              <li><a href="{% url 'create_salary' %}">Create Salary</a></li>
+              <li><a href="{% url 'list_salaries' %}">All Salaries</a></li>
+            </ul>
+
+            <p class="menu-label">Weapons</p>
+            <ul class="menu-list">
+              <li><a href="{% url 'weapon-create' %}">Add Weapon</a></li>
+              <li><a href="{% url 'weapon-list' %}">Weapon List</a></li>
+              <li><a href="{% url 'location_list' %}">Go to Locations</a></li>
+            </ul>
+          </div>
+
+          <p class="has-text-centered"><a href="{% url 'logout' %}" class="button is-danger">Logout</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

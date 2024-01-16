@@ -1,0 +1,24 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="box">
+                    <h1 class="title is-3 has-text-centered">Transactions</h1>
+
+                    <ul class="content">
+                        {% for transaction in transactions_list %}
+                            <li>{{ transaction }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <a href="{% url 'add_transaction' %}" class="button is-primary">Add Transaction</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+  <section class="section">
+    <div class="container has-text-centered">
+      <h2 class="title is-2">Add Location</h2>
+
+      <form method="post" class="mb-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="field is-grouped is-grouped-centered">
+          <div class="control">
+            <button type="submit" class="button is-primary">Add Location</button>
+          </div>
+          <div class="control">
+            <a href="{% url 'location_list' %}" class="button is-link">Back to Locations</a>
+          </div>
+        </div>
+      </form>
+
+      <!-- Add any additional content here if needed -->
+
+    </div>
+  </section>
+{% endblock %}

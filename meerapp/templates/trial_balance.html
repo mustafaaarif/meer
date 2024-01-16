@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trial Balance</title>
+</head>
+<body>
+    <h1>Trial Balance</h1>
+    <table>
+        <tr>
+            <th>Account</th>
+            <th>Balance</th>
+        </tr>
+        {% for account, balance in trial_balance.items %}
+            <tr>
+                <td>{{ account }}</td>
+                <td>{{ balance }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Journal Entries</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Account</th>
+            <th>Purpose of transaction</th>
+            <th>Debit Amount</th>
+            <th>Credit Amount</th>
+        </tr>
+        {% for entry in journal_entries %}
+            <tr>
+                <td>{{ entry.date }}</td>
+                <td>{{ entry.account.name }}</td>
+                <td>{{ entry.entry_name }}</td>
+                <td>{{ entry.debit_amount }}</td>
+                <td>{{ entry.credit_amount }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{% url 'add_journal_entry' %}">Add Journal Entry</a>
+</body>
+</html>

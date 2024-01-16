@@ -1,0 +1,70 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <h1 class="title">Deleted Employees</h1>
+            <div class="table-container">
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Joining Date</th>
+                            <th>CNIC Verification</th>
+                            <th>Designation</th>
+                            <th>Name</th>
+                            <th>Father Name</th>
+                            <th>Contact</th>
+                            <th>Ex-Guard</th>
+                            <th>Category</th>
+                            <th>CNIC No.</th>
+                            <th>CNIC Expiry Date</th>
+                            <th>Date of Birth</th>
+                            <th>Present Address</th>
+                            <th>Permanent Address</th>
+                            <th>Service No.</th>
+                            <th>Weapon No.</th>
+                            <th>Weapon Name</th>
+                            <th>Weapon Issue Date</th>
+                            <th>Uniform Issue Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for deleted_employee in deleted_employees %}
+                            <tr>
+                                <td>{{ deleted_employee.id }}</td>
+                                <td>{{ deleted_employee.edate }}</td>
+                                <td>{{ deleted_employee.ecnicverification }}</td>
+                                <td>{{ deleted_employee.edesignation }}</td>
+                                <td>{{ deleted_employee.ename }}</td>
+                                <td>{{ deleted_employee.efathername }}</td>
+                                <td>{{ deleted_employee.econtact }}</td>
+                                <td>{{ deleted_employee.eexguard }}</td>
+                                <td>{{ deleted_employee.ecategory }}</td>
+                                <td>{{ deleted_employee.ecnicno }}</td>
+                                <td>{{ deleted_employee.ecnicexpirydate }}</td>
+                                <td>{{ deleted_employee.edateofbirth }}</td>
+                                <td>{{ deleted_employee.epresentaddress }}</td>
+                                <td>{{ deleted_employee.epermenantaddress }}</td>
+                                <td>{{ deleted_employee.eserviceno }}</td>
+                                <td>{{ deleted_employee.weapono }}</td>
+                                <td>{{ deleted_employee.weaponname }}</td>
+                                <td>{{ deleted_employee.weapondate }}</td>
+                                <td>{{ deleted_employee.uniformissuedate }}</td>
+                                <td>
+                                    <form method="POST" action="{% url 'restore_employee' deleted_employee.id %}">
+                                        {% csrf_token %}
+                                        <button class="button is-primary" type="submit">Restore</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="{% url 'employee_list' %}" class="button is-link">Back to Employee List</a>
+        </div>
+    </div>
+{% endblock %}

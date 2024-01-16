@@ -1,0 +1,46 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+  <body>
+    <div class="container">
+      <h1 class="title is-1 has-text-centered">Employee List</h1>
+
+      <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>MSS number</th>
+            <th>Designation</th>
+            <th>Name</th>
+            <th>Father Name</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for employee in employees %}
+            <tr>
+              <td>{{ employee.id }}</td>
+              <td>{{ employee.MSS_number }}</td>
+              <td>{{ employee.edesignation }}</td>
+              <td>{{ employee.ename }}</td>
+              <td>{{ employee.efathername }}</td>
+              <td>{% if employee.is_deleted %}Deleted{% else %}Active{% endif %}</td>
+              <td>
+                <div class="buttons">
+                  <a href="{% url 'edit_employee' employee.id %}" class="button is-link">Edit</a>
+                  <a href="{% url 'delete_employee' employee.id %}" class="button is-danger">Delete</a>
+                  <a href="{% url 'employee_report' employee.id %}" class="button is-info">View Report</a>
+
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <a href="{% url 'add_employee' %}" class="button is-primary">Add Employee</a>
+    </div>
+  </body>
+{% endblock %}

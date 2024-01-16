@@ -1,0 +1,22 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+<div class="columns is-centered">
+  <div class="column is-half">
+    <section class="section">
+      <center><h1 class="title">Add Weapon</h1></center>
+      <form method="post" class="box">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="field is-grouped">
+          <div class="control">
+            <button type="submit" class="button is-primary">Add Weapon</button>
+          </div>
+        </div>
+      </form>
+      <p><a href="{% url 'weapon-list' %}" class="button is-link">Back to Weapon List</a></p>
+    </section>
+  </div>
+</div>
+{% endblock %}

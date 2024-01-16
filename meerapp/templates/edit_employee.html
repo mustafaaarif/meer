@@ -1,0 +1,28 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+  <body>
+    <div class="container has-text-centered">
+      <h1 class="title is-1">Edit Employee</h1>
+
+      <form method="POST" action="{% url 'edit_employee' employee.id %}" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+
+        <div class="field">
+          <div class="control">
+            {{ form.as_p }}
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button type="submit" class="button is-primary">Save Changes</button>
+          </div>
+        </div>
+      </form>
+
+      <a href="{% url 'employee_list' %}" class="button is-link">Back to Employee List</a>
+    </div>
+  </body>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "invoice/base.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="box">
+          <h1 class="title is-3 has-text-centered">Add Head of Account</h1>
+
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="field">
+              <div class="control">
+                <input type="submit" class="button is-primary" value="Save">
+              </div>
+            </div>
+          </form>
+
+          <p class="has-text-centered"><a href="{% url 'head_of_accounts' %}" class="button">Back to Head of Accounts</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
